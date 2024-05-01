@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: question-service
+server:
+  port: 9094
