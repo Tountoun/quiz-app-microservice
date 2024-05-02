@@ -1,0 +1,3 @@
+POSTGRES_USER: litt
+POSTGRES_PASSWORD: litt
+POSTGRES_DB: question_db

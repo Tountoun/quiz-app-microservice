@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  quiz_database:
+    image: postgres:alpine
+    ports:
+      - "5400:5432"
+    restart: always
+    env_file:
+      - .quiz_db_env
+  question_database:
+    image: postgres:alpine
+    ports:
+      - "5300:5432"
+    restart: always
+    env_file:
+      - .question_db_env
