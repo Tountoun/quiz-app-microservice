@@ -36,16 +36,24 @@ public class QuestionService {
         return questionDao.save(question);
     }
 
-    public List<QuestionWrapper> getRandomQuestions(String categoryName, int numberOfQuestions) {
+    public List<Integer> getRandomQuestionsIds(String categoryName, int numberOfQuestions) {
         List<Question> randomQuestionsByCategory = questionDao.findRandomQuestionsByCategory(categoryName, numberOfQuestions);
         return randomQuestionsByCategory
-                .stream().map(question -> QuestionWrapper.builder()
-                        .id(question.getId())
-                        .questionTitle(question.getQuestionTitle())
-                        .option1(question.getOption1())
-                        .option2(question.getOption2())
-                        .option3(question.getOption3())
-                        .option4(question.getOption4()).build()).toList();
+                .stream().map(Question::getId).toList();
+    }
+
+    public List<QuestionWrapper> getQuestions(List<Integer> questionIds) {
+        List<Question> questions = questionDao.findAllById(questionIds);
+        return questions.stream().map(
+                question ->
+                    QuestionWrapper.builder()
+                            .id(question.getId())
+                            .questionTitle(question.getQuestionTitle())
+                            .option1(question.getOption1())
+                            .option2(question.getOption2())
+                            .option3(question.getOption3())
+                            .option4(question.getOption4()).build()
+        ).toList();
     }
 
     public Integer calculateResult(List<Response> responses) {

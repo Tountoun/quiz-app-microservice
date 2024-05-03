@@ -76,13 +76,21 @@ public class QuestionController {
         );
     }
 
-    @GetMapping("/quiz")
-    public ResponseEntity<Response> getQuizQuestions(@RequestParam("category") String category,
+    @GetMapping("/generate")
+    public ResponseEntity<Response> getQuizQuestionsIds(@RequestParam("category") String category,
                                                      @RequestParam("nums") Integer nums) {
         return new ResponseEntity<>(Response.builder()
-                .data(questionService.getRandomQuestions(category, nums))
-                .message("Questions retrieved successfully")
+                .data(questionService.getRandomQuestionsIds(category, nums))
+                .message("Questions ids retrieved successfully")
                 .build(),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/quiz-questions")
+    public ResponseEntity<Response> quizQuestions(@RequestBody List<Integer> ids) {
+        return new ResponseEntity<>(Response.builder()
+                .data(questionService.getQuestions(ids))
+                .message("Questions retrieved successfully").build(),
                 HttpStatus.OK);
     }
 
