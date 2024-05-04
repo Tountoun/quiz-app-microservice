@@ -86,7 +86,7 @@ public class QuestionController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/quiz-questions")
+    @PostMapping("/quiz-questions")
     public ResponseEntity<Response> quizQuestions(@RequestBody List<Integer> ids) {
         return new ResponseEntity<>(Response.builder()
                 .data(questionService.getQuestions(ids))
